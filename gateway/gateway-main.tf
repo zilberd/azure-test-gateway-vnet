@@ -67,9 +67,15 @@ resource "azurerm_virtual_network_gateway" "net_gw" {
   timeouts {
     create = "60m"
     update = "60m"
-    read   = "5m"
+    read   = "60m"
     delete = "60m"
   }
+
+  # Set explicit dependencies
+  depends_on = [
+    azurerm_public_ip.gw-pip,
+  ]
+
 }
 
 resource "azurerm_local_network_gateway" "onpremise" {
@@ -80,6 +86,11 @@ resource "azurerm_local_network_gateway" "onpremise" {
   address_space       = var.onpremises_address_space
 
   tags = var.tags
+
+  # Set explicit dependencies
+  depends_on = [
+    azurerm_public_ip.gw-pip,
+  ]
 }
 
 resource "azurerm_virtual_network_gateway_connection" "onpremise" {
@@ -113,4 +124,18 @@ resource "azurerm_virtual_network_gateway_connection" "onpremise" {
     pfs_group        = local.ipsecPolicies["pfsGroup"]
   }
   tags = var.tags
+
+  timeouts {
+    create = "60m"
+    update = "60m"
+    read   = "60m"
+    delete = "60m"
+  }
+
+  # Set explicit dependencies
+  depends_on = [
+    azurerm_local_network_gateway.onpremise,
+    azurerm_virtual_network_gateway.net_gw,
+    azurerm_public_ip.gw-pip,
+  ]
 }

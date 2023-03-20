@@ -37,4 +37,8 @@ module "gateway" {
   onpremises_gw_address    = var.onpremises_gw_address
   onpremises_address_space = var.onpremises_address_space
   onpremises_shared_key    = var.onpremises_shared_key
+
+  depends_on = [
+    module.vnet,
+  ]
 }
