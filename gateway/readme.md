@@ -41,4 +41,5 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_gateway-name"></a> [gateway-name](#output\_gateway-name) | n/a |
+| <a name="output_gateway-pip-address"></a> [gateway-pip-address](#output\_gateway-pip-address) | n/a |
 | <a name="output_local-gateway-id"></a> [local-gateway-id](#output\_local-gateway-id) | n/a |
